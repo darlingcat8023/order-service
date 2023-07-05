@@ -1,0 +1,33 @@
+server:
+  port: 10100
+
+spring:
+  application:
+    name: "star-order-service"
+  profiles:
+    active: '@profiles.active@'
+  messages:
+    basename: "i18n/messages"
+    encoding: UTF-8
+
+management:
+  server:
+    port: 10110
+  endpoints:
+    web:
+      basePath: "/actuator/enterprise/order"
+      exposure:
+        include: "*"
+        exclude: "shutdown"
+      discovery:
+        enabled: true
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    org.springframework.web.servlet.DispatcherServlet: trace
+    org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: trace
+    com.star.enterprise.order.http.advice.RequestResponseWrapper: trace
+    org.springframework.web.client.RestTemplate: debug
